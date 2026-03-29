@@ -4,14 +4,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - run: chmod +x gradlew
-      - run: ./gradlew build
+      - name: Download Forge MDK
+        run: |
+          wget -q https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.2.0/forge-1.20.1-47.2.0-mdk.zip
+          unzip -q forge-1.20.1-47.2.0-mdk.zip -d mdk
+      - name: Copy mod sources over MDK
+        run: |
+          cp build.gradle mdk/
+          cp settings.gradle mdk/
+          cp -r src/ mdk/src/
+          rm -rf mdk/src/main/java/com/example
+      - name: Build
+        working-directory: mdk
+        run: |
+          chmod +x gradlew
+          ./gradlew build
       - uses: actions/upload-artifact@v4
         with:
           name: fishingminigame-jar
-          path: build/libs/*[^s].jar
+          path: mdk/build/libs/*[^s].jar
