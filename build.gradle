@@ -11,8 +11,6 @@ archivesBaseName = 'fishingminigame-1.20.1'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-println "Java: ${System.getProperty('java.version')} JVM: ${System.getProperty('java.vm.version')}(${System.getProperty('java.vendor')}) Arch: ${System.getProperty('os.arch')}"
-
 minecraft {
     mappings channel: 'official', version: '1.20.1'
 
@@ -41,23 +39,22 @@ minecraft {
     }
 }
 
-repositories {
-}
+repositories {}
 
 dependencies {
-    net.minecraftforge:forge:1.20.1-47.4.10
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.10'
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "fishingminigame",
-                "Specification-Vendor"    : "fishingminigame",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "fishingminigame",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            'Specification-Title'     : 'fishingminigame',
+            'Specification-Vendor'    : 'fishingminigame',
+            'Specification-Version'   : '1',
+            'Implementation-Title'    : project.name,
+            'Implementation-Version'  : project.jar.archiveVersion,
+            'Implementation-Vendor'   : 'fishingminigame',
+            'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
